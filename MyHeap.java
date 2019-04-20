@@ -1,4 +1,11 @@
 public class MyHeap{
+  private int nthRow(int index){
+    return (int)(Math.log(index + 2) / Math.log(2));
+  }
+  private boolean isInRow(int row, int index){
+    if(row == nthRow(index)) return true;
+    else return false;
+  }
   // - size  is the number of elements in the data array.
   // - push the element at index i downward into the correct position. This will swap with the larger of the child nodes provided thatchild is larger. This stops when a leaf is reached, or neither child is larger. [ should be O(logn) ]
   // - precondition: index is between 0 and size-1 inclusive
