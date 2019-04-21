@@ -6,6 +6,15 @@ public class MyHeap{
     if(row == nthRow(index)) return true;
     else return false;
   }
+  private int getLeft(int index){
+    return index * 2 + 1;
+  }
+  private int getRight(int index){
+    return index * 2 + 2;
+  }
+  private int getParent(int index){
+    return (index - 1) / 2;
+  }
   // - size  is the number of elements in the data array.
   // - push the element at index i downward into the correct position. This will swap with the larger of the child nodes provided thatchild is larger. This stops when a leaf is reached, or neither child is larger. [ should be O(logn) ]
   // - precondition: index is between 0 and size-1 inclusive
