@@ -91,12 +91,13 @@ public class MyHeap{
     {
       thing += space;
     }
-    thing += data[2];
+    thing += data[2] + "\n";
     for(int i = 0 ; data.length < 3 + i || i < 4 ; i ++)
     {
       String block = space + data[3 + i] + space;
-      thing += block;
+      thing += block + space;
     }
+    thing += "\n";
     for(int i = 0 ; data.length < 7 + i || i < 8 ; i ++)
     {
       String block = data[7 + i] + space;
@@ -105,12 +106,19 @@ public class MyHeap{
     return thing;
   }
   public static void main(String[] args){
-    int[] data = new int[16];
-    for(int i = 0 ; i < 16 ; i ++)
-    {
-      data[i] = (int) ((Math.random() * 1000000) % 100);
-    }
+    // int[] data = new int[16];
+    // for(int i = 0 ; i < 15 ; i ++)
+    // {
+    //   data[i] = (int) ((Math.random() * 1000000) % 100);
+    // }
+    int[] data = {10, 19, 93, 92, 54, 21, 73, 50, 73, 26, 21, 80, 62, 42, 82};
     System.out.println(Arrays.toString(data));
+    System.out.println(toString4Rows(data));
+    System.out.println("Push down 10 below");
+    pushDown(data,data.length,0);
+    System.out.println(toString4Rows(data));
+    System.out.println("Push up 80 below");
+    pushUp(data,11);
     System.out.println(toString4Rows(data));
   }
 
