@@ -1,3 +1,6 @@
+import java.util.*;
+import java.lang.*;
+
 public class MyHeap{
   private static int nthRow(int index){
     return (int)(Math.log(index + 2) / Math.log(2));
@@ -70,5 +73,45 @@ public class MyHeap{
   // - sort the array by converting it into a heap then removing the largest value n-1 times. [ should be O(nlogn) ]
   public static void heapsort(int[] data){}
 
+
+  private static String toString4Rows(int[] data){//only prints 4 level arrays, and only takes 2 digit numbers
+    String thing = "";
+    String space = "  ";
+    for(int i = 0 ; i < 7 ; i ++)
+    {
+      thing += space;
+    }
+    thing += data[0] + "\n";
+    for(int i = 0 ; data.length < 1 || i < 3 ; i ++)
+    {
+      thing += space;
+    }
+    thing += data[1];
+    for(int i = 0 ; data.length < 2 || i < 7 ; i ++)
+    {
+      thing += space;
+    }
+    thing += data[2];
+    for(int i = 0 ; data.length < 3 + i || i < 4 ; i ++)
+    {
+      String block = space + data[3 + i] + space;
+      thing += block;
+    }
+    for(int i = 0 ; data.length < 7 + i || i < 8 ; i ++)
+    {
+      String block = data[7 + i] + space;
+      thing += block;
+    }
+    return thing;
+  }
+  public static void main(String[] args){
+    int[] data = new int[16];
+    for(int i = 0 ; i < 16 ; i ++)
+    {
+      data[i] = (int) ((Math.random() * 1000000) % 100);
+    }
+    System.out.println(Arrays.toString(data));
+    System.out.println(toString4Rows(data));
+  }
 
 }
