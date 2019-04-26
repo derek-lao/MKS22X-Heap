@@ -30,19 +30,20 @@ public class MyHeap{
   // - precondition: index is between 0 and size-1 inclusive
   // - precondition: size is between 1 and data.length inclusive.
   private static void pushDown(int[] data,int size,int index){
+    System.out.println("Size is " + size + " Index is " + index);
     if(index < size && size > 1 && !isLeaf(size,index))
     {
       if(data[index] < data[getLeftIndex(index)] || data[index] < data[getRightIndex(index)])
       {
         int holder = 0;
-        if(data[getLeftIndex(index)] > data[getRightIndex(index)])
+        if(getLeftIndex(index) < size && data[getLeftIndex(index)] > data[getRightIndex(index)])
         {
           holder = data[getLeftIndex(index)];
           data[getLeftIndex(index)] = data[index];
           data[index] = holder;
           pushDown(data,size,getLeftIndex(index));
-        }
-        else
+        } // if the previous statement executed, exit the method
+        else if(getRightIndex(index) < size && data[getLeftIndex(index)] <= data[getRightIndex(index)])
         {
           holder = data[getRightIndex(index)];
           data[getRightIndex(index)] = data[index];
@@ -69,9 +70,12 @@ public class MyHeap{
 
   // - convert the array into a valid heap. [ should be O(n) ]
   public static void heapify(int[] data){
-    for(int i = 0 ; i < data.length ; i ++)
+    for(int i = data.length - 1 ; i > -1 ; i --)
     {
       pushDown(data,data.length,i);
+      // System.out.println(i + " pushDown has been called, here is the result");
+      // System.out.println(Arrays.toString(data));
+      // System.out.println(toString4Rows(data));
     }
   }
 
@@ -84,7 +88,7 @@ public class MyHeap{
     // System.out.println("It has been heapified within the heapsort, here is the final result");
     // System.out.println(Arrays.toString(data));
     // System.out.println(toString4Rows(data));
-    for(int i = 0 ; i < data.length ; i ++)
+    for(int i = 0 ; i < data.length - 1 ; i ++)
     {
       System.out.println(i + " My current array and heap before the step is");
       System.out.println(Arrays.toString(data));
@@ -132,12 +136,12 @@ public class MyHeap{
     return thing;
   }
   public static void main(String[] args){
-    // int[] data = new int[16];
+    // int[] data = new int[15];
     // for(int i = 0 ; i < 15 ; i ++)
     // {
     //   data[i] = (int) ((Math.random() * 1000000) % 100);
     // }
-    int[] data = {10, 19, 93, 92, 54, 21, 73, 50, 73, 26, 21, 80, 62, 42, 82};
+    int[] data = {8, 42, 93, 77, 48, 83, 49, 48, 96, 93, 85, 17, 86, 85, 98};
     System.out.println("Here is the original data");
     System.out.println(Arrays.toString(data));
     System.out.println(toString4Rows(data));
