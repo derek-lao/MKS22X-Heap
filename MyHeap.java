@@ -77,7 +77,13 @@ public class MyHeap{
 
   // - sort the array by converting it into a heap then removing the largest value n-1 times. [ should be O(nlogn) ]
   public static void heapsort(int[] data){
+    System.out.println("Began sort, just to make sure heapify works, here is the data before heapify in heapSort");
+    System.out.println(Arrays.toString(data));
+    System.out.println(toString4Rows(data));
     heapify(data);
+    System.out.println("It has been heapified within the heapsort, here is the final result");
+    System.out.println(Arrays.toString(data));
+    System.out.println(toString4Rows(data));
     for(int i = 0 ; i < data.length ; i ++)
     {
       int holder = data[data.length - 1 - i];
@@ -135,9 +141,14 @@ public class MyHeap{
     // System.out.println("Push up 80 below");
     // pushUp(data,11);
     // System.out.println(toString4Rows(data));
-    System.out.println("I am going to heapify this array now");
-    heapify(data);
-    System.out.println("It has been heapified, here is the final result");
+    // System.out.println("I am going to heapify this array now");
+    // heapify(data);
+    // System.out.println("It has been heapified, here is the final result");
+    // System.out.println(Arrays.toString(data));
+    // System.out.println(toString4Rows(data));
+    System.out.println("I am going to sort this array now");
+    heapsort(data);
+    System.out.println("sorted, the printed array should be sorted, the printed heap should be broken");
     System.out.println(Arrays.toString(data));
     System.out.println(toString4Rows(data));
   }
