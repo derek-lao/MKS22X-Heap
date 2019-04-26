@@ -126,6 +126,7 @@ public class MyHeap{
     //   data[i] = (int) ((Math.random() * 1000000) % 100);
     // }
     int[] data = {10, 19, 93, 92, 54, 21, 73, 50, 73, 26, 21, 80, 62, 42, 82};
+    System.out.println("Here is the original data");
     System.out.println(Arrays.toString(data));
     System.out.println(toString4Rows(data));
     // System.out.println("Push down 10 below");
@@ -134,6 +135,11 @@ public class MyHeap{
     // System.out.println("Push up 80 below");
     // pushUp(data,11);
     // System.out.println(toString4Rows(data));
+    System.out.println("I am going to heapify this array now");
+    heapify(data);
+    System.out.println("It has been heapified, here is the final result");
+    System.out.println(Arrays.toString(data));
+    System.out.println(toString4Rows(data));
   }
 
 }
