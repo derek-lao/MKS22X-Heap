@@ -30,7 +30,7 @@ public class MyHeap{
   // - precondition: index is between 0 and size-1 inclusive
   // - precondition: size is between 1 and data.length inclusive.
   private static void pushDown(int[] data,int size,int index){
-    if(size > 1 && !isLeaf(size,index))
+    if(index < size && size > 1 && !isLeaf(size,index))
     {
       if(data[index] < data[getLeftIndex(index)] || data[index] < data[getRightIndex(index)])
       {
@@ -77,19 +77,25 @@ public class MyHeap{
 
   // - sort the array by converting it into a heap then removing the largest value n-1 times. [ should be O(nlogn) ]
   public static void heapsort(int[] data){
-    System.out.println("Began sort, just to make sure heapify works, here is the data before heapify in heapSort");
-    System.out.println(Arrays.toString(data));
-    System.out.println(toString4Rows(data));
+    // System.out.println("Began sort, just to make sure heapify works, here is the data before heapify in heapSort");
+    // System.out.println(Arrays.toString(data));
+    // System.out.println(toString4Rows(data));
     heapify(data);
-    System.out.println("It has been heapified within the heapsort, here is the final result");
-    System.out.println(Arrays.toString(data));
-    System.out.println(toString4Rows(data));
+    // System.out.println("It has been heapified within the heapsort, here is the final result");
+    // System.out.println(Arrays.toString(data));
+    // System.out.println(toString4Rows(data));
     for(int i = 0 ; i < data.length ; i ++)
     {
+      System.out.println(i + " My current array and heap before the step is");
+      System.out.println(Arrays.toString(data));
+      System.out.println(toString4Rows(data));
       int holder = data[data.length - 1 - i];
       data[data.length - 1 - i] = data[0];
       data[0] = holder;
       pushDown(data,data.length - 1 - i,0);
+      System.out.println(i + " My current array and heap after the step is");
+      System.out.println(Arrays.toString(data));
+      System.out.println(toString4Rows(data));
     }
   }
 
