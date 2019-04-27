@@ -30,25 +30,31 @@ public class MyHeap{
   // - precondition: index is between 0 and size-1 inclusive
   // - precondition: size is between 1 and data.length inclusive.
   private static void pushDown(int[] data,int size,int index){
-    System.out.println("Size is " + size + " Index is " + index);
+    // System.out.println("pushDown activated!");
+    // System.out.println("Size is " + size + " Index is " + index);
     if(index < size && size > 1 && !isLeaf(size,index))
     {
-      if(data[index] < data[getLeftIndex(index)] || data[index] < data[getRightIndex(index)])
+      // System.out.println("made it past 1");
+      if(getLeftIndex(index) < size && data[index] < data[getLeftIndex(index)] ||
+        getRightIndex(index) < size && data[index] < data[getRightIndex(index)])
       {
+        // System.out.println("made it past 2");
         int holder = 0;
-        if(getLeftIndex(index) < size && data[getLeftIndex(index)] > data[getRightIndex(index)])
-        {
-          holder = data[getLeftIndex(index)];
-          data[getLeftIndex(index)] = data[index];
-          data[index] = holder;
-          pushDown(data,size,getLeftIndex(index));
-        } // if the previous statement executed, exit the method
-        else if(getRightIndex(index) < size && data[getLeftIndex(index)] <= data[getRightIndex(index)])
-        {
+        if(getRightIndex(index) < size && data[getLeftIndex(index)] <= data[getRightIndex(index)])
+        {//swap right
+          // System.out.println("made it past 3");
           holder = data[getRightIndex(index)];
           data[getRightIndex(index)] = data[index];
           data[index] = holder;
           pushDown(data,size,getRightIndex(index));
+        }
+        else
+        {//swap left
+          // System.out.println("made it past 4");
+          holder = data[getLeftIndex(index)];
+          data[getLeftIndex(index)] = data[index];
+          data[index] = holder;
+          pushDown(data,size,getLeftIndex(index));
         }
       }
     }
@@ -90,16 +96,20 @@ public class MyHeap{
     // System.out.println(toString4Rows(data));
     for(int i = 0 ; i < data.length - 1 ; i ++)
     {
-      System.out.println(i + " My current array and heap before the step is");
-      System.out.println(Arrays.toString(data));
-      System.out.println(toString4Rows(data));
+      // System.out.println(i + " My current array and heap before movement is");
+      // System.out.println(Arrays.toString(data));
+      // System.out.println(toString4Rows(data));
       int holder = data[data.length - 1 - i];
       data[data.length - 1 - i] = data[0];
       data[0] = holder;
+      // System.out.println(i + " Just swapped, have not pushDown yet");
+      // System.out.println(Arrays.toString(data));
+      // System.out.println(toString4Rows(data));
       pushDown(data,data.length - 1 - i,0);
-      System.out.println(i + " My current array and heap after the step is");
-      System.out.println(Arrays.toString(data));
-      System.out.println(toString4Rows(data));
+      // System.out.println(i + " My current array and heap after the pushDown");
+      // System.out.println(Arrays.toString(data));
+      // System.out.println(toString4Rows(data));
+      // System.out.println("\n\n\n");
     }
   }
 
@@ -136,12 +146,12 @@ public class MyHeap{
     return thing;
   }
   public static void main(String[] args){
-    // int[] data = new int[15];
-    // for(int i = 0 ; i < 15 ; i ++)
-    // {
-    //   data[i] = (int) ((Math.random() * 1000000) % 100);
-    // }
-    int[] data = {8, 42, 93, 77, 48, 83, 49, 48, 96, 93, 85, 17, 86, 85, 98};
+    int[] data = new int[15];
+    for(int i = 0 ; i < 15 ; i ++)
+    {
+      data[i] = (int) ((Math.random() * 1000000) % 100);
+    }
+    // int[] data = {8, 42, 93, 77, 48, 83, 49, 48, 96, 93, 85, 17, 86, 85, 98};
     System.out.println("Here is the original data");
     System.out.println(Arrays.toString(data));
     System.out.println(toString4Rows(data));
