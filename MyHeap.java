@@ -32,29 +32,30 @@ public class MyHeap{
   private static void pushDown(int[] data,int size,int index){
     // System.out.println("pushDown activated!");
     // System.out.println("Size is " + size + " Index is " + index);
-    if(index < size && size > 1 && !isLeaf(size,index))
+    int currentIndex = index;
+    if(size > 1)
     {
       // System.out.println("made it past 1");
-      if(getLeftIndex(index) < size && data[index] < data[getLeftIndex(index)] ||
-        getRightIndex(index) < size && data[index] < data[getRightIndex(index)])
+      while((getLeftIndex(currentIndex) < size && data[currentIndex] < data[getLeftIndex(currentIndex)] ||
+        getRightIndex(currentIndex) < size && data[currentIndex] < data[getRightIndex(currentIndex)]) && !isLeaf(size,currentIndex))
       {
         // System.out.println("made it past 2");
         int holder = 0;
-        if(getRightIndex(index) < size && data[getLeftIndex(index)] <= data[getRightIndex(index)])
+        if(getRightIndex(currentIndex) < size && data[getLeftIndex(currentIndex)] <= data[getRightIndex(currentIndex)])
         {//swap right
           // System.out.println("made it past 3");
-          holder = data[getRightIndex(index)];
-          data[getRightIndex(index)] = data[index];
-          data[index] = holder;
-          pushDown(data,size,getRightIndex(index));
+          holder = data[getRightIndex(currentIndex)];
+          data[getRightIndex(currentIndex)] = data[currentIndex];
+          data[currentIndex] = holder;
+          currentIndex = getRightIndex(currentIndex);
         }
         else
         {//swap left
           // System.out.println("made it past 4");
-          holder = data[getLeftIndex(index)];
-          data[getLeftIndex(index)] = data[index];
-          data[index] = holder;
-          pushDown(data,size,getLeftIndex(index));
+          holder = data[getLeftIndex(currentIndex)];
+          data[getLeftIndex(currentIndex)] = data[currentIndex];
+          data[currentIndex] = holder;
+          currentIndex = getLeftIndex(currentIndex);
         }
       }
     }
@@ -64,12 +65,13 @@ public class MyHeap{
   // - precondition: index is between 0 and data.length-1 inclusive.
   private static void pushUp(int[] data,int index){
     int holder = 0;
-    if(index != 0 && data[getParentIndex(index)] < data[index])
+    int currentIndex = index;
+    while(index != 0 && data[getParentIndex(index)] < data[index])
     {
-      holder = data[getParentIndex(index)];
-      data[getParentIndex(index)] = data[index];
-      data[index] = holder;
-      pushUp(data,getParentIndex(index));
+      holder = data[getParentIndex(currentIndex)];
+      data[getParentIndex(currentIndex)] = data[currentIndex];
+      data[currentIndex] = holder;
+      currentIndex = getParentIndex(currentIndex);
     }
   }
 
