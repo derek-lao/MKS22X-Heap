@@ -18,12 +18,9 @@ public class MyHeap{
   private static int getParentIndex(int index){
     return (index - 1) / 2;
   }
-  private static boolean isLeaf(int size,int index){
+  private static int leafThreshold(int size){
     // if 15 elements total, your limit would be 8, and if index is less than or equal to 6, we're good,
-    if(index > Math.pow(2 , (int)(Math.log(size) / Math.log(2))) - 2)
-    return true;
-    else
-    return false;
+    return (int)(Math.pow(2 , (int)(Math.log(size) / Math.log(2))) - 2);
   }
   // - size  is the number of elements in the data array.
   // - push the element at index i downward into the correct position. This will swap with the larger of the child nodes provided that child is larger. This stops when a leaf is reached, or neither child is larger. [ should be O(logn) ]
@@ -33,11 +30,14 @@ public class MyHeap{
     // System.out.println("pushDown activated!");
     // System.out.println("Size is " + size + " Index is " + index);
     int currentIndex = index;
+    int leftIndex = getLeftIndex(currentIndex);
+    int rightIndex = getRightIndex(currentIndex); // make sure both are changing when the currentIndex is changed
+    int threshold = leafThreshold(size);
     if(size > 1)
     {
       // System.out.println("made it past 1");
-      while((getLeftIndex(currentIndex) < size && data[currentIndex] < data[getLeftIndex(currentIndex)] ||
-        getRightIndex(currentIndex) < size && data[currentIndex] < data[getRightIndex(currentIndex)]) && !isLeaf(size,currentIndex))
+      while((leftIndex < size && data[currentIndex] < data[leftIndex] ||
+        rightIndex < size && data[currentIndex] < data[rightIndex]) && currentIndex <= threshold)
       {
         // System.out.println("made it past 2");
         int holder = 0;
@@ -48,6 +48,8 @@ public class MyHeap{
           data[getRightIndex(currentIndex)] = data[currentIndex];
           data[currentIndex] = holder;
           currentIndex = getRightIndex(currentIndex);
+          leftIndex = getLeftIndex(currentIndex);
+          rightIndex = getRightIndex(currentIndex);
         }
         else
         {//swap left
@@ -56,6 +58,8 @@ public class MyHeap{
           data[getLeftIndex(currentIndex)] = data[currentIndex];
           data[currentIndex] = holder;
           currentIndex = getLeftIndex(currentIndex);
+          leftIndex = getLeftIndex(currentIndex);
+          rightIndex = getRightIndex(currentIndex);
         }
       }
     }
@@ -66,12 +70,14 @@ public class MyHeap{
   private static void pushUp(int[] data,int index){
     int holder = 0;
     int currentIndex = index;
-    while(index != 0 && data[getParentIndex(index)] < data[index])
+    int parentIndex = getParentIndex(currentIndex);
+    while(currentIndex != 0 && data[parentIndex] < data[currentIndex])
     {
-      holder = data[getParentIndex(currentIndex)];
-      data[getParentIndex(currentIndex)] = data[currentIndex];
+      holder = data[parentIndex];
+      data[parentIndex] = data[currentIndex];
       data[currentIndex] = holder;
       currentIndex = getParentIndex(currentIndex);
+      parentIndex = getParentIndex(currentIndex);
     }
   }
 
